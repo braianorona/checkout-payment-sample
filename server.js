@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const mercadopago = require('mercadopago')
-// const axios = require('axios').default()
+const axios = require('axios').default()
 
 // REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel
 mercadopago.configure({
@@ -51,7 +51,6 @@ app.post('/create_preference', (req, res) => {
     })
     .then((preferenceId) => {
       console.log(preferenceId)
-      //   axios.get('https://api.mercadopago.com/v1/payments/1242010966')
     })
     .catch(function (error) {
       console.log(error)
@@ -59,9 +58,12 @@ app.post('/create_preference', (req, res) => {
 })
 
 app.post('/mercadopago/notifications', (req, res) => {
-  console.log(req.body)
-	// req.body.payment_id
+  console.log(req.body.id)
 
+  axios
+    .get(`https://api.mercadopago.com/v1/payments/${req.body.id}`)
+    .then(console.log)
+    .catch(console.error)
   res.status('200').json(req.body)
 })
 
