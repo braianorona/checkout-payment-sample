@@ -54,12 +54,9 @@ const setDonationStatusFromMercadoPagoStatus = (status) => {
 }
 
 const updateDonation = (status) => {
-  // Buscar donación
+  // 5. Buscar donación por el paymentId/preferenceId
+  // 6. Setear nuevo valor del status
 }
-
-// const saveDataToDB(){
-
-// }
 
 // REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel
 mercadopago.configure({
@@ -108,9 +105,16 @@ app.post('/create_preference', (req, res) => {
     .then((preferenceId) => {
       console.log(preferenceId)
 
-
-	  // 0. Crear nueva donación en DB
-	  // 
+      /*
+	   0. Crear nueva donación en DB (Setear todos los datos de la donación)
+	 
+			const donation = {
+				...donationData,
+				status: "pending"
+				paymentId: preferenceId
+			} 
+	 
+	 */
     })
     .catch(function (error) {
       console.log(error)
