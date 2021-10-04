@@ -31,9 +31,9 @@ app.post("/create_preference", (req, res) => {
 			}
 		],
 		back_urls: {
-			"success": "https://scholas-node.netlify.app/feedback",
-			"failure": "https://scholas-node.netlify.app/feedback",
-			"pending": "https://scholas-node.netlify.app/feedback"
+			"success": "https://scholas-node.herokuapp.com/feedback",
+			"failure": "https://scholas-node.herokuapp.com/feedback",
+			"pending": "https://scholas-node.herokuapp.com/feedback"
 		},
 		auto_return: "approved",
 	};
