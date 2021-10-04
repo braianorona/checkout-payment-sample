@@ -80,7 +80,7 @@ app.post('/mercadopago/notifications', (req, res) => {
   console.log(req.body.id)
 
   //   const id = '1242014357'
-  const id = req.body.id
+  const id = req.body.data.id
 
   getPaymentData(id)
 
