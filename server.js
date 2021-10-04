@@ -29,9 +29,9 @@ app.post("/create_preference", (req, res) => {
 			}
 		],
 		back_urls: {
-			"success": "http://localhost:8080/feedback",
-			"failure": "http://localhost:8080/feedback",
-			"pending": "http://localhost:8080/feedback"
+			"success": "https://scholas-node.netlify.app/feedback",
+			"failure": "https://scholas-node.netlify.app/feedback",
+			"pending": "https://scholas-node.netlify.app/feedback"
 		},
 		auto_return: "approved",
 	};
