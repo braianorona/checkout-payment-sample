@@ -3,7 +3,7 @@ const app = express()
 const cors = require('cors')
 const mercadopago = require('mercadopago')
 const { default: axios } = require('axios')
-// const axios = require('axios').default()
+const { response } = require('express')
 
 // Constants
 const token =
@@ -17,9 +17,49 @@ const getPaymentData = (id) => {
         Authorization: `Bearer ${token}`
       }
     })
-    .then(console.log)
+    .then((response) => response.data)
     .catch(console.error)
 }
+
+const setDonationStatusFromMercadoPagoStatus = (status) => {
+  /* 
+	Mercado Pago Status --> Donation Status
+	-----
+
+	--- success
+	approved: El pago fue aprobado y acreditado.
+
+	--- pending
+	pending: El usuario no completó el proceso de pago todavía.
+	authorized: El pago fue autorizado pero no capturado todavía.
+	in_process: El pago está en revisión.
+
+	--- failure
+	rejected: El pago fue rechazado. El usuario podría reintentar el pago.
+	cancelled: El pago fue cancelado por una de las partes o el pago expiró.
+*/
+
+  if (status === 'approved') return 'success'
+
+  if (
+    status === 'pending' ||
+    status === 'authorized' ||
+    status === 'in_process'
+  )
+    return 'pending'
+
+  if (status === 'rejected' || status === 'cancelled') return 'failure'
+
+  return console.log('Warning: Estado desconocido')
+}
+
+const updateDonation = (status) => {
+  // Buscar donación
+}
+
+// const saveDataToDB(){
+
+// }
 
 // REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel
 mercadopago.configure({
@@ -67,22 +107,30 @@ app.post('/create_preference', (req, res) => {
     })
     .then((preferenceId) => {
       console.log(preferenceId)
-      const id = '1242014357'
 
-      getPaymentData(id)
+
+	  // 0. Crear nueva donación en DB
+	  // 
     })
     .catch(function (error) {
       console.log(error)
     })
 })
 
-app.post('/mercadopago/notifications', (req, res) => {
-  console.log(req.body.id)
-
-  //   const id = '1242014357'
+app.post('/mercadopago/notifications', async (req, res) => {
+  // 1. Obtener identificador de pago
   const id = req.body.data.id
 
-  getPaymentData(id)
+  // 2. Obtener info de pago a partir del id
+  const paymentData = await getPaymentData(id)
+
+  // 3. Setear estado en Donación desde Mercado Pago
+  const donationStatus = setDonationStatusFromMercadoPagoStatus(
+    paymentData.status
+  )
+
+  // 4. Actualizar donación en DB
+  updateDonation(donationStatus)
 
   res.status('200').json(req.body)
 })
