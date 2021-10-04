@@ -20,7 +20,7 @@ app.get("/", function (req, res) {
   res.status(200).sendFile("index.html");
 }); 
 
-app.post("/create_preference", (req, res) => {
+app.post("/create_preference", (req, res) => { 
 
 	let preference = {
 		items: [
