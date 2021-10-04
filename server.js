@@ -2,12 +2,15 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const mercadopago = require('mercadopago')
-const axios = require('axios').default()
+const { default: axios } = require('axios')
+// const axios = require('axios').default()
+
+const token =
+  'TEST-1525632293088814-100414-957f02583329f006389847e732f36d1d-228186099'
 
 // REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel
 mercadopago.configure({
-  access_token:
-    'TEST-1525632293088814-100414-957f02583329f006389847e732f36d1d-228186099'
+  access_token: token
 })
 
 app.use(express.urlencoded({ extended: false }))
@@ -61,9 +64,14 @@ app.post('/mercadopago/notifications', (req, res) => {
   console.log(req.body.id)
 
   axios
-    .get(`https://api.mercadopago.com/v1/payments/${req.body.id}`)
+    .get(`https://api.mercadopago.com/v1/payments/${req.body.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
     .then(console.log)
     .catch(console.error)
+
   res.status('200').json(req.body)
 })
 
