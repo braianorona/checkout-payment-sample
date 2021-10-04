@@ -8,6 +8,7 @@ mercadopago.configure({
 	access_token: "APP_USR-1525632293088814-100414-96ce1a3df7eaf0a0949f2cd7bbd67222-228186099",
 });
   
+const port = 8085
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -56,6 +57,6 @@ app.get('/feedback', function(req, res) {
 	});
 });
 
-app.listen(8080, () => {
-  console.log("The server is now running on Port 8080");
+app.listen(process.env.PORT || 5000, () => {
+  console.log("The server is now running on Port 5000");
 });
