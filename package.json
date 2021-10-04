@@ -4,15 +4,16 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "debug": "node --inspect=5005 server.js"
+    "start": "nodemon server.js",
+    "debug": "nodemon --inspect=5005 server.js"
   },
   "dependencies": {
+    "axios": "^0.22.0",
     "cors": "^2.8.5",
     "express": "4.17.1",
     "mercadopago": "^1.5.8"
   },
   "devDependencies": {
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.13"  
   }
 }
