@@ -13,6 +13,7 @@ const port = 8085
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors({
+  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
   origin: 'https://folcamp-scholas-test.netlify.app/'
 }));
 app.use(express.static("../../client"));
