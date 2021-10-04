@@ -5,8 +5,21 @@ const mercadopago = require('mercadopago')
 const { default: axios } = require('axios')
 // const axios = require('axios').default()
 
+// Constants
 const token =
   'TEST-1525632293088814-100414-957f02583329f006389847e732f36d1d-228186099'
+
+// Functions
+const getPaymentData = (id) => {
+  axios
+    .get(`https://api.mercadopago.com/v1/payments/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(console.log)
+    .catch(console.error)
+}
 
 // REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel
 mercadopago.configure({
@@ -54,6 +67,9 @@ app.post('/create_preference', (req, res) => {
     })
     .then((preferenceId) => {
       console.log(preferenceId)
+      const id = '1242014357'
+
+      getPaymentData(id)
     })
     .catch(function (error) {
       console.log(error)
@@ -63,14 +79,10 @@ app.post('/create_preference', (req, res) => {
 app.post('/mercadopago/notifications', (req, res) => {
   console.log(req.body.id)
 
-  axios
-    .get(`https://api.mercadopago.com/v1/payments/${req.body.id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then(console.log)
-    .catch(console.error)
+  //   const id = '1242014357'
+  const id = req.body.id
+
+  getPaymentData(id)
 
   res.status('200').json(req.body)
 })
