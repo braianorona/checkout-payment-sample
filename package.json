@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "debug": "nodemon --inspect=5005 server.js"
+    "start": "node server.js",
+    "debug": "node --inspect=5005 server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
