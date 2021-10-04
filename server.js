@@ -18,11 +18,11 @@ app.use(
     origin: '*'
   })
 )
-// app.use(express.static('../../client'))
+app.use(express.static('../../client'))
 
-// app.get('/', function (req, res) {
-//   res.status(200).sendFile('index.html')
-// })
+app.get('/', function (req, res) {
+  res.status(200).sendFile('index.html')
+})
 
 app.post('/create_preference', (req, res) => {
   let preference = {
@@ -60,6 +60,7 @@ app.post('/create_preference', (req, res) => {
 
 app.post('/mercadopago/notifications', (req, res) => {
   console.log(req.body)
+	// req.body.payment_id
 
   res.status('200').json(req.body)
 })
