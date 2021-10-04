@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors({
   methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
-  origin: 'https://folcamp-scholas-test.netlify.app/'
+  origin: '*'
 }));
 app.use(express.static("../../client"));
 
