@@ -77,7 +77,7 @@ app.get('/', function (req, res) {
   res.status(200).sendFile('index.html')
 })
 
-app.get('/create_preference', (req, res) => {
+app.post('/create_preference', (req, res) => {
   let preference = {
     items: [
       {
