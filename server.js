@@ -7,7 +7,7 @@ const { response } = require('express')
 
 // Constants
 const token =
-  'TEST-1525632293088814-100414-957f02583329f006389847e732f36d1d-228186099'
+  'APP_USR-6826760122307899-081113-aa25d493fd87a8799dfea2bb61bebc4c-96795050'
 
 // Functions
 const getPaymentData = (id) => {
